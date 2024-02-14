@@ -1,0 +1,10 @@
+async def video_stream(websocket, frame):
+    try:
+        encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 65]  # Define JPEG encoding parameters with quality level 65.
+        image_data = cv2.imencode('.jpg', frame, encode_param)[1]  # Encode the frame as a JPEG image and get the encoded data.
+
+        # Send the encoded image data to the WebSocket client.
+        await websocket.send(image_data.tobytes())
+    except Exception as e:
+        print(e)  # If an exception occurs, print the error message.
+        pass
